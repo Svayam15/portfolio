@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Portfolio</title>
+<title>Alex Chen — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -13,13 +13,26 @@
     --bg: #f5f4f0;
     --ink: #111;
     --muted: #888;
-    --accent: #1a1a1a;
-    --card: #eeecea;
     --border: rgba(0,0,0,0.1);
     --tag-bg: #e0deda;
     --tag-ink: #444;
+    --card: #eeecea;
+    --card-hover: #e5e3df;
+    --accent-bar: #111;
     --mono: 'DM Mono', monospace;
     --sans: 'DM Sans', sans-serif;
+  }
+
+  [data-theme="dark"] {
+    --bg: #000;
+    --ink: #f0ede8;
+    --muted: #555;
+    --border: rgba(255,255,255,0.07);
+    --tag-bg: #111;
+    --tag-ink: #888;
+    --card: #0a0a0a;
+    --card-hover: #111;
+    --accent-bar: #f0ede8;
   }
 
   html { scroll-behavior: smooth; }
@@ -31,330 +44,207 @@
     font-size: 15px;
     line-height: 1.7;
     min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
   }
 
-  /* ── Layout ── */
-  .container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  /* ── Nav ── */
+  /* Nav */
   nav {
-    position: sticky;
-    top: 0;
+    position: sticky; top: 0;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
-    z-index: 100;
-    padding: 1rem 0;
+    z-index: 100; padding: 1rem 0;
+    transition: background 0.3s, border-color 0.3s;
   }
-
-  nav .inner {
-    max-width: 780px;
-    margin: 0 auto;
+  nav .inner, footer .inner {
+    max-width: 780px; margin: 0 auto;
     padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
   }
-
   .nav-logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    letter-spacing: 0.02em;
-    text-decoration: none;
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: var(--ink); letter-spacing: 0.02em; text-decoration: none;
   }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s;
   }
-
   .nav-links a:hover { color: var(--ink); }
 
-  /* ── Hero ── */
-  .hero {
-    padding: 7rem 0 5rem;
-    border-bottom: 1px solid var(--border);
+  /* Theme toggle */
+  .theme-toggle {
+    background: none; border: 1px solid var(--border);
+    border-radius: 20px; padding: 4px 12px; cursor: pointer;
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.05em; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
   }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink); }
 
+  /* Container */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Hero */
+  .hero { padding: 7rem 0 5rem; border-bottom: 1px solid var(--border); }
   .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease forwards;
   }
-
   .hero h1 {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.1s forwards;
+    font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 300;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.1s forwards;
   }
-
-  .hero h1 em {
-    font-style: normal;
-    font-weight: 500;
-  }
-
+  .hero h1 em { font-style: normal; font-weight: 500; }
   .hero-sub {
-    max-width: 500px;
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.2s forwards;
+    max-width: 500px; color: var(--muted); font-size: 16px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
   }
-
   .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.3s forwards;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s ease 0.3s forwards;
   }
 
+  /* Social strip */
+  .social-strip {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    opacity: 0; animation: fadeUp 0.6s ease 0.4s forwards;
+  }
+  .social-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s;
+  }
+  .social-link:hover { color: var(--ink); }
+  .social-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+  /* Buttons */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
+    padding: 0.6rem 1.2rem; border-radius: 4px; text-decoration: none;
+    transition: all 0.2s; cursor: pointer;
   }
-
   .btn-primary {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--ink); color: var(--bg);
     border: 1px solid var(--ink);
   }
-
-  .btn-primary:hover { background: #333; }
-
+  .btn-primary:hover { opacity: 0.82; }
   .btn-ghost {
-    background: transparent;
-    color: var(--ink);
+    background: transparent; color: var(--ink);
     border: 1px solid var(--border);
   }
-
   .btn-ghost:hover { background: var(--card); }
-
-  /* ── Section ── */
-  section {
-    padding: 4.5rem 0;
-    border-bottom: 1px solid var(--border);
+  .btn-dl {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--border);
   }
+  .btn-dl:hover { background: var(--card-hover); }
+  .btn-dl svg { fill: currentColor; }
 
-  section:last-child { border-bottom: none; }
-
+  /* Sections */
+  section { padding: 4.5rem 0; border-bottom: 1px solid var(--border); }
   .section-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 2.5rem;
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2.5rem;
   }
 
-  /* ── About ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .about-text p {
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { color: var(--muted); margin-bottom: 1rem; }
   .about-text p:last-child { margin-bottom: 0; }
-
   .about-skills h3 {
-    font-size: 12px;
-    font-family: var(--mono);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
-    color: var(--ink);
+    font-size: 12px; font-family: var(--mono); font-weight: 500;
+    letter-spacing: 0.05em; margin-bottom: 0.75rem; color: var(--ink);
   }
-
   .skill-group { margin-bottom: 1.5rem; }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    background: var(--tag-bg);
-    color: var(--tag-ink);
-    padding: 3px 10px;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
+    font-family: var(--mono); font-size: 11px;
+    background: var(--tag-bg); color: var(--tag-ink);
+    padding: 3px 10px; border-radius: 3px; letter-spacing: 0.03em;
+    transition: background 0.3s, color 0.3s;
   }
 
-  /* ── Projects ── */
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
+  /* Projects */
+  .projects-list { display: flex; flex-direction: column; gap: 8px; }
   .project-card {
-    background: var(--card);
-    border-radius: 6px;
+    background: var(--card); border-radius: 6px;
     padding: 1.5rem 1.75rem;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-    align-items: start;
-    transition: background 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 8px;
-    position: relative;
-    overflow: hidden;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1rem; align-items: start;
+    transition: background 0.2s; cursor: pointer;
+    text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
   }
-
   .project-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--ink);
-    transform: scaleY(0);
-    transform-origin: bottom;
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--accent-bar);
+    transform: scaleY(0); transform-origin: bottom;
     transition: transform 0.25s ease;
   }
-
-  .project-card:hover { background: #e5e3df; }
+  .project-card:hover { background: var(--card-hover); }
   .project-card:hover::before { transform: scaleY(1); }
-
-  .project-name {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 0.35rem;
-  }
-
-  .project-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 0.75rem;
-  }
-
+  .project-name { font-size: 15px; font-weight: 500; margin-bottom: 0.35rem; color: var(--ink); }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 0.75rem; }
   .project-arrow {
-    font-family: var(--mono);
-    font-size: 18px;
-    color: var(--muted);
-    transition: transform 0.2s, color 0.2s;
-    padding-top: 2px;
+    font-family: var(--mono); font-size: 18px; color: var(--muted);
+    transition: transform 0.2s, color 0.2s; padding-top: 2px;
   }
+  .project-card:hover .project-arrow { transform: translate(3px, -3px); color: var(--ink); }
 
-  .project-card:hover .project-arrow {
-    transform: translate(3px, -3px);
-    color: var(--ink);
+  /* Contact */
+  .contact-intro { color: var(--muted); margin-bottom: 2rem; max-width: 420px; }
+  .contact-list { max-width: 420px; }
+  .contact-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--ink); transition: opacity 0.2s;
   }
+  .contact-item:first-child { border-top: 1px solid var(--border); }
+  .contact-item:hover { opacity: 0.6; }
+  .contact-left { display: flex; align-items: center; gap: 12px; }
+  .contact-left svg { width: 14px; height: 14px; fill: currentColor; opacity: 0.5; }
+  .contact-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; }
+  .contact-right { display: flex; align-items: center; gap: 8px; }
+  .contact-val { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .c-arrow { font-size: 13px; color: var(--muted); transition: transform 0.2s; }
+  .contact-item:hover .c-arrow { transform: translate(2px, -2px); }
 
-  /* ── Contact ── */
-  .contact-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  /* Resume card */
+  .resume-card {
+    margin-top: 2.5rem; background: var(--card);
+    border-radius: 8px; padding: 1.5rem 1.75rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+    transition: background 0.3s;
   }
+  .resume-card-text p:first-child { font-weight: 500; font-size: 14px; margin-bottom: 0.2rem; }
+  .resume-card-text p:last-child { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 2px;
-    transition: border-color 0.2s;
-    letter-spacing: 0.04em;
-  }
+  /* Footer */
+  footer { padding: 2rem 0; border-top: 1px solid var(--border); }
+  footer p { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
 
-  .contact-link:hover { border-color: var(--ink); }
-
-  /* ── Footer ── */
-  footer {
-    padding: 2rem 0;
-    border-top: 1px solid var(--border);
-  }
-
-  footer .inner {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── Animations ── */
+  /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── Responsive ── */
   @media (max-width: 600px) {
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .hero { padding: 4rem 0 3rem; }
-    nav .nav-links { gap: 1.2rem; }
+    .nav-links { gap: 1.2rem; }
+    .resume-card { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
@@ -363,169 +253,162 @@
 <nav>
   <div class="inner">
     <a class="nav-logo" href="#">Alex Chen</a>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle">
+        <span id="toggleIcon">☽</span>
+        <span id="toggleLabel">dark</span>
+      </button>
+    </div>
   </div>
 </nav>
 
 <main>
   <div class="container">
 
-    <!-- Hero -->
     <div class="hero">
       <p class="hero-eyebrow">Software Engineer · Mumbai</p>
       <h1>Building systems<br>that <em>actually work.</em></h1>
-      <p class="hero-sub">
-        I'm a backend engineer focused on distributed systems and developer tooling.
-        I care about reliability, clean APIs, and code that teams can reason about.
-      </p>
+      <p class="hero-sub">I'm a backend engineer focused on distributed systems and developer tooling. I care about reliability, clean APIs, and code that teams can reason about.</p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">View projects →</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
+      <div class="social-strip">
+        <a href="https://github.com/alexchen" target="_blank" class="social-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          github.com/alexchen
+        </a>
+        <a href="https://linkedin.com/in/alexchen" target="_blank" class="social-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          linkedin.com/in/alexchen
+        </a>
+        <a href="mailto:alex@example.com" class="social-link">
+          <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          alex@example.com
+        </a>
+      </div>
     </div>
 
-    <!-- About -->
     <section id="about">
       <p class="section-label reveal">About</p>
       <div class="about-grid reveal">
         <div class="about-text">
-          <p>
-            I've spent the last 4 years building backend infrastructure at early-stage startups,
-            with a focus on making systems fast, observable, and easy to debug.
-          </p>
-          <p>
-            Before that, I studied Computer Science at IIT Bombay. These days I'm
-            mostly thinking about distributed systems, developer experience, and how
-            to write software that holds up under pressure.
-          </p>
-          <p>
-            Outside of work: long runs, too much coffee, and occasionally building
-            side projects that go nowhere but teach me something.
-          </p>
+          <p>I've spent the last 4 years building backend infrastructure at early-stage startups, with a focus on making systems fast, observable, and easy to debug.</p>
+          <p>Before that, I studied Computer Science at IIT Bombay. These days I'm mostly thinking about distributed systems, developer experience, and how to write software that holds up under pressure.</p>
+          <p>Outside of work: long runs, too much coffee, and occasionally building side projects that go nowhere but teach me something.</p>
         </div>
         <div class="about-skills">
           <div class="skill-group">
             <h3>Languages</h3>
             <div class="tags">
-              <span class="tag">Go</span>
-              <span class="tag">Python</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">Rust</span>
-              <span class="tag">SQL</span>
+              <span class="tag">Go</span><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">Rust</span><span class="tag">SQL</span>
             </div>
           </div>
           <div class="skill-group">
             <h3>Infrastructure</h3>
             <div class="tags">
-              <span class="tag">Kubernetes</span>
-              <span class="tag">AWS</span>
-              <span class="tag">Terraform</span>
-              <span class="tag">Postgres</span>
-              <span class="tag">Redis</span>
-              <span class="tag">Kafka</span>
+              <span class="tag">Kubernetes</span><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Postgres</span><span class="tag">Redis</span><span class="tag">Kafka</span>
             </div>
           </div>
           <div class="skill-group">
             <h3>Interests</h3>
             <div class="tags">
-              <span class="tag">Distributed systems</span>
-              <span class="tag">DevX</span>
-              <span class="tag">Observability</span>
+              <span class="tag">Distributed systems</span><span class="tag">DevX</span><span class="tag">Observability</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
     <section id="projects">
       <p class="section-label reveal">Projects</p>
       <div class="projects-list reveal">
-
         <a class="project-card" href="#" onclick="return false;">
           <div>
             <p class="project-name">Relay</p>
-            <p class="project-desc">
-              A lightweight job queue for Go — built on Redis, with at-least-once delivery,
-              dead-letter queues, and a CLI dashboard. Used in production by 3 teams.
-            </p>
-            <div class="tags">
-              <span class="tag">Go</span>
-              <span class="tag">Redis</span>
-              <span class="tag">CLI</span>
-            </div>
+            <p class="project-desc">A lightweight job queue for Go — built on Redis, with at-least-once delivery, dead-letter queues, and a CLI dashboard. Used in production by 3 teams.</p>
+            <div class="tags"><span class="tag">Go</span><span class="tag">Redis</span><span class="tag">CLI</span></div>
           </div>
           <span class="project-arrow">↗</span>
         </a>
-
         <a class="project-card" href="#" onclick="return false;">
           <div>
             <p class="project-name">Logpipe</p>
-            <p class="project-desc">
-              Structured log aggregation tool that ships logs from any container to
-              ClickHouse with minimal config. 40% cheaper than managed alternatives at scale.
-            </p>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">ClickHouse</span>
-              <span class="tag">Docker</span>
-            </div>
+            <p class="project-desc">Structured log aggregation that ships logs from any container to ClickHouse with minimal config. 40% cheaper than managed alternatives at scale.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">ClickHouse</span><span class="tag">Docker</span></div>
           </div>
           <span class="project-arrow">↗</span>
         </a>
-
         <a class="project-card" href="#" onclick="return false;">
           <div>
             <p class="project-name">Envctl</p>
-            <p class="project-desc">
-              CLI tool to manage environment variables across staging and prod, with
-              diff views, audit logs, and team access controls. Built for the team,
-              ended up open-sourcing it.
-            </p>
-            <div class="tags">
-              <span class="tag">TypeScript</span>
-              <span class="tag">Postgres</span>
-              <span class="tag">Open source</span>
-            </div>
+            <p class="project-desc">CLI tool to manage environment variables across staging and prod, with diff views, audit logs, and team access controls. Built for the team, ended up open-sourcing it.</p>
+            <div class="tags"><span class="tag">TypeScript</span><span class="tag">Postgres</span><span class="tag">Open source</span></div>
           </div>
           <span class="project-arrow">↗</span>
         </a>
-
         <a class="project-card" href="#" onclick="return false;">
           <div>
             <p class="project-name">Faultline</p>
-            <p class="project-desc">
-              Chaos engineering harness for microservices — injects network partitions,
-              latency, and error responses to test failure paths before they hit prod.
-            </p>
-            <div class="tags">
-              <span class="tag">Go</span>
-              <span class="tag">Kubernetes</span>
-              <span class="tag">gRPC</span>
-            </div>
+            <p class="project-desc">Chaos engineering harness for microservices — injects network partitions, latency, and error responses to test failure paths before they hit prod.</p>
+            <div class="tags"><span class="tag">Go</span><span class="tag">Kubernetes</span><span class="tag">gRPC</span></div>
           </div>
           <span class="project-arrow">↗</span>
         </a>
-
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact">
       <p class="section-label reveal">Contact</p>
       <div class="reveal">
-        <p style="color: var(--muted); margin-bottom: 2rem; max-width: 420px; line-height: 1.7;">
-          Open to interesting problems, collaborations, or just a good conversation
-          about systems design.
-        </p>
-        <div class="contact-row">
-          <a href="mailto:alex@example.com" class="contact-link">✉ alex@example.com</a>
-          <a href="https://github.com" class="contact-link" target="_blank">⌥ github.com/alexchen</a>
-          <a href="https://linkedin.com" class="contact-link" target="_blank">in linkedin</a>
+        <p class="contact-intro">Open to interesting problems, collaborations, or just a good conversation about systems design.</p>
+        <div class="contact-list">
+          <a href="mailto:alex@example.com" class="contact-item">
+            <div class="contact-left">
+              <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+              <span class="contact-label">Email</span>
+            </div>
+            <div class="contact-right">
+              <span class="contact-val">alex@example.com</span>
+              <span class="c-arrow">↗</span>
+            </div>
+          </a>
+          <a href="https://github.com/alexchen" target="_blank" class="contact-item">
+            <div class="contact-left">
+              <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              <span class="contact-label">GitHub</span>
+            </div>
+            <div class="contact-right">
+              <span class="contact-val">github.com/alexchen</span>
+              <span class="c-arrow">↗</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/alexchen" target="_blank" class="contact-item">
+            <div class="contact-left">
+              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <span class="contact-label">LinkedIn</span>
+            </div>
+            <div class="contact-right">
+              <span class="contact-val">linkedin.com/in/alexchen</span>
+              <span class="c-arrow">↗</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="resume-card">
+          <div class="resume-card-text">
+            <p>Resume</p>
+            <p>PDF · Last updated March 2025</p>
+          </div>
+          <a href="resume.pdf" download="AlexChen_Resume.pdf" class="btn btn-dl">
+            <svg width="13" height="13" viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+            Download CV
+          </a>
         </div>
       </div>
     </section>
@@ -542,10 +425,22 @@
 
 <script>
   const observer = new IntersectionObserver(
-    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const toggle = document.getElementById('themeToggle');
+  const icon = document.getElementById('toggleIcon');
+  const label = document.getElementById('toggleLabel');
+  let dark = false;
+
+  toggle.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    icon.textContent = dark ? '○' : '☽';
+    label.textContent = dark ? 'light' : 'dark';
+  });
 </script>
 </body>
 </html>
