@@ -370,44 +370,14 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
   .cursor,.cursor-ring{display:none;}
   body{cursor:auto;}
 
-  /* Nav */
+  /* Nav — hide links, keep logo + toggle */
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
 
-  /* Hamburger */
-  .hamburger{
-    display:flex;flex-direction:column;justify-content:center;
-    gap:5px;background:none;border:none;
-    cursor:pointer;padding:4px;
-  }
-  .hamburger span{
-    display:block;width:22px;height:1.5px;
-    background:var(--muted);transition:all 0.3s;
-  }
-  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-  .hamburger.open span:nth-child(2){opacity:0;}
-  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-
-  /* Mobile menu drawer */
-  .mobile-menu{
-    display:flex;flex-direction:column;
-    position:fixed;top:0;left:0;right:0;bottom:0;
-    background:var(--bg);z-index:99;
-    justify-content:center;align-items:center;gap:2.5rem;
-    opacity:0;pointer-events:none;transition:opacity 0.3s;
-  }
-  .mobile-menu.open{opacity:1;pointer-events:all;}
-  .mobile-menu a{
-    font-family:var(--display);font-size:3.5rem;
-    color:var(--ink);text-decoration:none;
-    letter-spacing:0.05em;transition:color 0.2s;
-  }
-  .mobile-menu a:hover{color:var(--accent);}
-
-  /* Hero — fix top gap and make text big */
-  .hero{padding:2rem 1.5rem 3rem;}
+  /* Hero */
+  .hero{padding:0 1.5rem 3rem;}
   .hero-photo-wrap{display:none;}
-  .hero h1{font-size:clamp(4.5rem,22vw,8rem);}
+  .hero h1{font-size:clamp(3.5rem,18vw,7rem);}
   .hero-bg-text{font-size:clamp(10rem,40vw,20rem);}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:2rem;}
   .hero-scroll{flex-direction:row;}
@@ -430,16 +400,8 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
   footer{padding:1.5rem;flex-direction:column;gap:0.5rem;text-align:center;}
 }
 
-/* Hamburger hidden on desktop */
-.hamburger{display:none;}
-.mobile-menu{display:none;}
-@media(max-width:768px){
-  .hamburger{display:flex;}
-  .mobile-menu{display:flex;}
-}
-
 @media(max-width:400px){
-  .hero h1{font-size:clamp(4rem,20vw,6rem);}
+  .hero h1{font-size:clamp(3rem,18vw,5rem);}
   .contact-big{font-size:clamp(2.5rem,14vw,4rem);}
 }
 </style>
@@ -456,20 +418,8 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
     <li><a href="#projects">work</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:1rem;">
-    <button id="themeToggle" style="background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='var(--ink)';this.style.borderColor='var(--ink)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'"></button>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <button id="themeToggle" style="background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;cursor:none;transition:all 0.2s;" onmouseover="this.style.color='var(--ink)';this.style.borderColor='var(--ink)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'"></button>
 </nav>
-
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" class="mobile-link">ABOUT</a>
-  <a href="#projects" class="mobile-link">WORK</a>
-  <a href="#contact" class="mobile-link">CONTACT</a>
-</div>
 
 <section class="hero">
   <div class="hero-bg-text">SS</div>
@@ -581,8 +531,8 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
   <div class="reveal">
     <p class="contact-big">LET'S<br><span>TALK.</span></p>
     <div class="contact-links">
-      <a href="/cdn-cgi/l/email-protection#b3c4dcc1d8c0c5d2cad2def3d4ded2dadf9dd0dcde" class="contact-link">
-        <span><span class="__cf_email__" data-cfemail="d7a0b8a5bca4a1b6aeb6ba97b0bab6bebbf9b4b8ba">[email&#160;protected]</span></span>
+      <a href="mailto:worksvayam@gmail.com" class="contact-link">
+        <span>worksvayam@gmail.com</span>
         <span class="contact-link-arrow">↗</span>
       </a>
       <a href="https://github.com/Svayam15" target="_blank" class="contact-link">
@@ -614,7 +564,7 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
   <p>Built with ❤️</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Theme — read saved preference FIRST before anything renders
   const saved = localStorage.getItem('theme') || 'dark';
   const html = document.documentElement;
@@ -650,19 +600,12 @@ footer p{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacin
   }
   animRing();
 
-  // Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    });
-  });
-
   // Scroll reveal
-  cons
+  const obs = new IntersectionObserver(
+    entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),
+    {threshold:0.1}
+  );
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
